@@ -8,8 +8,6 @@ using namespace std;
 
 class stri
 {
-
-private:
 	static int counter;
 	int length;
 	char* stringg;
@@ -20,13 +18,12 @@ public:
 
 	// изаменена инициализация stringg с помощью ранее 
 	// инициализированного в списке инициализаторов атрибута
-	stri(int length_P, const char* stringg_P) : length{ length_P }, stringg{ new char[length_P] { *stringg_P } } { get_count()++; }
+	stri(int length_P, const char* stringg_P) : length{ length_P }, stringg{ new char[length_P] { *stringg_P } } { counter++; }
 
 	void set_string(char* stringg_P)
 	{
 		strcpy_s(stringg, length, stringg_P);
 	}
-
 
 	void print_string()
 	{
@@ -39,15 +36,15 @@ public:
 		return stringg;
 	}
 
-	static int& get_count()
+	int get_count()
 	{
-
-		static int counter = 0;
 		return counter;
 	}
 
 	~stri()
 	{
+		counter--;
+
 		delete[] stringg;
 	}
 };
