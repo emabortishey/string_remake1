@@ -18,7 +18,9 @@ public:
 
 	stri(int length_P) : stri(length_P, "nope") {}
 
-	stri(int length_P, const char* stringg_P) : length{ length_P }, stringg{ new char[length] { *stringg_P } } { get_count()++; }
+	// изаменена инициализация stringg с помощью ранее 
+	// инициализированного в списке инициализаторов атрибута
+	stri(int length_P, const char* stringg_P) : length{ length_P }, stringg{ new char[length_P] { *stringg_P } } { get_count()++; }
 
 	void set_string(char* stringg_P)
 	{
