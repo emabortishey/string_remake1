@@ -22,6 +22,12 @@ public:
 
 	void set_string(char* stringg_P)
 	{
+		delete[] stringg;
+
+		length = (sizeof(stringg_P) / sizeof(char));
+
+		stringg = new char[length];
+
 		strcpy_s(stringg, length, stringg_P);
 	}
 
@@ -31,7 +37,7 @@ public:
 		puts(stringg);
 	}
 
-	char* get_string()
+	const char* get_string()
 	{
 		return stringg;
 	}
