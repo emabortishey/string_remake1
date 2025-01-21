@@ -20,37 +20,22 @@ public:
 	// инициализированного в списке инициализаторов атрибута
 	stri(int length_P, const char* stringg_P) : length{ length_P }, stringg{ new char[length_P] { *stringg_P } } { counter++; }
 
-	void set_string(char* stringg_P)
-	{
-		delete[] stringg;
+	// теперь модификатор принимает строку по константе
+	void set_string(const char* stringg_P);
 
-		length = (sizeof(stringg_P) / sizeof(char));
+	void print_string();
 
-		stringg = new char[length];
-
-		strcpy_s(stringg, length, stringg_P);
-	}
-
-	void print_string()
-	{
-		cout << "\n—трока: ";
-		puts(stringg);
-	}
-
+	// теперь возвращение происходит по константе
 	const char* get_string()
 	{
 		return stringg;
 	}
 
+	// аксессор дл€ счЄтчика теперь не создает локальную переменную
 	int get_count()
 	{
 		return counter;
 	}
 
-	~stri()
-	{
-		counter--;
-
-		delete[] stringg;
-	}
+	~stri();
 };
