@@ -9,30 +9,46 @@ using namespace std;
 class stri
 {
 	static int counter;
-	int length;
+	size_t length;
 	char* stringg;
 public:
-	stri() : stri(80, "nope") {}
 
-	stri(int length_P) : stri(length_P, "nope") {}
+	// конструктор с 1 параметром переделан
+	// в более удобную версию, принимающую строку
+	// и не требующую размер для инициализации
+	explicit stri(const char* obj) : length{ sizeof(obj)/sizeof(char)}, stringg{new char[sizeof(obj) / sizeof(char)]}
+	{
+		strcpy_s(stringg, length, obj);
+	}
 
-	// изаменена инициализация stringg с помощью ранее 
-	// инициализированного в списке инициализаторов атрибута
-	stri(int length_P, const char* stringg_P) : length{ length_P }, stringg{ new char[length_P] { *stringg_P } } { counter++; }
+	// конструктор копирования
+	explicit stri(const stri& obj) : length{ obj.length }, stringg{ new char[obj.length] } 
+	{
+		strcpy_s(stringg, length, obj.stringg); 
+		counter++;
+	}
+
+	// конструктор переноса
+	explicit stri(stri&& obj) : length{ obj.length }, stringg{ obj.stringg }
+	{
+		obj.length = 0;
+		obj.stringg = nullptr;
+		counter++;
+	}
 
 	// теперь модификатор принимает строку по константе
 	void set_string(const char* stringg_P);
 
-	void print_string();
+	void print_string() const;
 
 	// теперь возвращение происходит по константе
-	const char* get_string()
+	const char* get_string() const
 	{
 		return stringg;
 	}
 
 	// аксессор для счётчика теперь не создает локальную переменную
-	int get_count()
+	static int get_count()
 	{
 		return counter;
 	}

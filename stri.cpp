@@ -16,7 +16,7 @@ void stri::set_string(const char* stringg_P)
 	strcpy_s(stringg, length, stringg_P);
 }
 
-void stri::print_string()
+void stri::print_string() const
 {
 	cout << "\nСтрока: ";
 	puts(stringg);
